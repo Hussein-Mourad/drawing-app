@@ -9,6 +9,6 @@ package drawing.app;
  *
  * @author hussein
  */
-public class GUIHandler {
-    
+public class Position {
+
 }

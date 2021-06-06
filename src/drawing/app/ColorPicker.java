@@ -13,6 +13,7 @@ import java.awt.Color;
  */
 public class ColorPicker extends javax.swing.JFrame {
 
+    private DrawingPanelController controller;
     private DrawingPanel panel;
 
     public ColorPicker() {
@@ -24,7 +25,8 @@ public class ColorPicker extends javax.swing.JFrame {
      *
      * @param panel
      */
-    public ColorPicker(DrawingPanel panel) {
+    public ColorPicker(DrawingPanelController controller, DrawingPanel panel) {
+        this.controller = controller;
         this.panel = panel;
         initComponents();
     }
@@ -96,7 +98,7 @@ public class ColorPicker extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Color color = jColorChooser1.getColor();
-        panel.setColor(color);
+        controller.setColor(color);
         panel.repaint();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

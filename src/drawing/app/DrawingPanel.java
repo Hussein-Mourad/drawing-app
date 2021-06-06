@@ -5,11 +5,12 @@
  */
 package drawing.app;
 
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JToggleButton;
 
 /**
  *
@@ -17,40 +18,34 @@ import java.util.ArrayList;
  */
 public class DrawingPanel extends javax.swing.JPanel {
 
-    Graphics2D g2D;
-    ArrayList<Rectangle> rectangles = new ArrayList<>();
-    ArrayList<Square> squares = new ArrayList<>();
-    float stroke = 1;
-    Color color = Color.BLACK;
+    ShapesEnum action;
+    DrawingPanelController controller = new DrawingPanelController(this);
 
     /**
      * Creates new form NewJPanel
      */
     public DrawingPanel() {
-        initComponents();
-    }
 
-    public void setColor(Color color) {
-        this.color = color;
+        initComponents();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g2D = (Graphics2D) g;
-        g2D.setColor(color);
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.setColor(controller.getColor());
         g2D.fillRect(
-                jButton1.getX() + jButton1.getWidth() + 10,
-                jButton1.getY() + 4,
+                colorPickerButton.getX() + colorPickerButton.getWidth() + 10,
+                colorPickerButton.getY() + 4,
                 20,
                 20
         );
 
-        for (Rectangle rectangle : rectangles) {
+        for (Rectangle rectangle : controller.getRectangles()) {
             rectangle.draw(this, g2D);
         }
 
-        for (Square square : squares) {
+        for (Square square : controller.getSquares()) {
             square.draw(this, g2D);
         }
     }
@@ -64,10 +59,10 @@ public class DrawingPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        button2 = new javax.swing.JToggleButton();
-        button1 = new javax.swing.JToggleButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        squareButton = new javax.swing.JToggleButton();
+        rectangleButton = new javax.swing.JToggleButton();
+        strokeDropDown = new javax.swing.JComboBox<>();
+        colorPickerButton = new javax.swing.JButton();
 
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -83,31 +78,31 @@ public class DrawingPanel extends javax.swing.JPanel {
             }
         });
 
-        button2.setText("Square");
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        squareButton.setText("Square");
+        squareButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                squareButtonActionPerformed(evt);
             }
         });
 
-        button1.setText("Rectangle");
-        button1.addActionListener(new java.awt.event.ActionListener() {
+        rectangleButton.setText("Rectangle");
+        rectangleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
+                rectangleButtonActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "5", "10", "24" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        strokeDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "5", "10", "24" }));
+        strokeDropDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                strokeDropDownActionPerformed(evt);
             }
         });
 
-        jButton1.setText("choose color");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        colorPickerButton.setText("choose color");
+        colorPickerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                colorPickerButtonActionPerformed(evt);
             }
         });
 
@@ -117,13 +112,13 @@ public class DrawingPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(button1)
+                .addComponent(rectangleButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button2)
+                .addComponent(squareButton)
                 .addGap(26, 26, 26)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(strokeDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(colorPickerButton)
                 .addContainerGap(258, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -131,61 +126,81 @@ public class DrawingPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(button1)
-                    .addComponent(button2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(356, Short.MAX_VALUE))
+                    .addComponent(rectangleButton)
+                    .addComponent(squareButton)
+                    .addComponent(strokeDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colorPickerButton))
+                .addContainerGap(360, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-        if (button1.isSelected()) {
-            Rectangle rectangle = new Rectangle(evt.getPoint(), evt.getPoint(), stroke, color);
-            rectangles.add(rectangle);
-        }
-        if (button2.isSelected()) {
-            Square square = new Square(evt.getPoint(), evt.getPoint(), stroke, color);
-            squares.add(square);
-        }
+        controller.mousePressed(evt, action);
     }//GEN-LAST:event_mousePressed
 
     private void mouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseReleased
-        button1.setSelected(false);
-        button2.setSelected(false);
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        controller.mouseReleased(evt);
     }//GEN-LAST:event_mouseReleased
 
     private void mouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseDragged
-        if (button1.isSelected()) {
-            rectangles.get(rectangles.size() - 1).setBottomCornerPosition(evt.getPoint());
-        }
-        if (button2.isSelected()) {
-            squares.get(squares.size() - 1).setBottomCornerPosition(evt.getPoint());
-        }
+        controller.mouseDragged(evt, action);
     }//GEN-LAST:event_mouseDragged
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+    private void squareButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_squareButtonActionPerformed
+        action = ShapesEnum.SQUARE;
         this.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-    }//GEN-LAST:event_button2ActionPerformed
+    }//GEN-LAST:event_squareButtonActionPerformed
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+    private void rectangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rectangleButtonActionPerformed
+        action = ShapesEnum.RECTANGLE;
         this.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-    }//GEN-LAST:event_button1ActionPerformed
+    }//GEN-LAST:event_rectangleButtonActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        this.stroke = Integer.valueOf((String) jComboBox1.getSelectedItem());
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void strokeDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_strokeDropDownActionPerformed
+        int stroke = Integer.valueOf((String) strokeDropDown.getSelectedItem());
+        controller.setStroke(stroke);
+    }//GEN-LAST:event_strokeDropDownActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ColorPicker colorPicker = new ColorPicker(this);
-        colorPicker.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void colorPickerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colorPickerButtonActionPerformed
+        controller.colorPicker();
+    }//GEN-LAST:event_colorPickerButtonActionPerformed
+
+    public JButton getColorPickerButton() {
+        return colorPickerButton;
+    }
+
+    public void setColorPickerButton(JButton colorPickerButton) {
+        this.colorPickerButton = colorPickerButton;
+    }
+
+    public JToggleButton getRectangleButton() {
+        return rectangleButton;
+    }
+
+    public void setRectangleButton(JToggleButton rectangleButton) {
+        this.rectangleButton = rectangleButton;
+    }
+
+    public JToggleButton getSquareButton() {
+        return squareButton;
+    }
+
+    public void setSquareButton(JToggleButton squareButton) {
+        this.squareButton = squareButton;
+    }
+
+    public JComboBox<String> getStrokeDropDown() {
+        return strokeDropDown;
+    }
+
+    public void setStrokeDropDown(JComboBox<String> strokeDropDown) {
+        this.strokeDropDown = strokeDropDown;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton button1;
-    private javax.swing.JToggleButton button2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton colorPickerButton;
+    private javax.swing.JToggleButton rectangleButton;
+    private javax.swing.JToggleButton squareButton;
+    private javax.swing.JComboBox<String> strokeDropDown;
     // End of variables declaration//GEN-END:variables
 }

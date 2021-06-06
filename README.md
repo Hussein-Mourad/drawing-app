@@ -6,8 +6,8 @@
 - [ ] Line segment
 - [ ] Circle
 - [ ] Triangle
-- [ ] Rectangle
-- [ ] Square
+- [X] Rectangle
+- [X] Square
 - [ ] Identify atleast 6 required Design patterns that can help to facilitate the implementation of the application
 - [ ] Apply the 4 components of oop to the design
 - [ ] You should apply SOLID principles in the program

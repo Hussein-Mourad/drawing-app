@@ -14,6 +14,7 @@ public class Rectangle implements Shape {
 
     private int width;
     private int height;
+    private int x, y;
     float stroke = 1;
     Color color = Color.BLACK;
     private Point topCornerPosition;
@@ -39,11 +40,13 @@ public class Rectangle implements Shape {
 
     @Override
     public void draw(JPanel panel, Graphics2D g2D) {
-        width = (int) (bottomCornerPosition.getX() - topCornerPosition.getX());
-        height = (int) (bottomCornerPosition.getY() - topCornerPosition.getY());
+        width = Math.abs((int) (bottomCornerPosition.getX() - topCornerPosition.getX()));
+        height = Math.abs((int) (bottomCornerPosition.getY() - topCornerPosition.getY()));
+        x = Math.min((int) bottomCornerPosition.getX(), (int) topCornerPosition.getX());
+        y = Math.min((int) bottomCornerPosition.getY(), (int) topCornerPosition.getY());
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
-        g2D.drawRect((int) topCornerPosition.getX(), (int) topCornerPosition.getY(), width, height);
+        g2D.drawRect(x, y, width, height);
         panel.repaint();
     }
 

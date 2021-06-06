@@ -33,10 +33,10 @@ public class Square extends Rectangle implements Shape {
 
     @Override
     public void draw(JPanel panel, Graphics2D g2D) {
-        int topX = (int) super.getTopCornerPosition().getX();
-        int topY = (int) super.getTopCornerPosition().getY();
-        int bottomX = (int) super.getBottomCornerPosition().getX();
-        super.setWidth(bottomX - topX);
+        int topX = Math.min((int) super.getTopCornerPosition().getX(), (int) super.getBottomCornerPosition().getX());
+        int topY = Math.min((int) super.getTopCornerPosition().getY(), (int) super.getBottomCornerPosition().getY());
+        int bottomX = Math.max((int) super.getTopCornerPosition().getX(), (int) super.getBottomCornerPosition().getX());
+        super.setWidth(Math.abs(bottomX - topX));
         side = super.getWidth();
         super.setHeight(side);
         g2D.setStroke(new BasicStroke(super.getStroke()));

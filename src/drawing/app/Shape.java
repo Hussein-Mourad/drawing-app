@@ -5,21 +5,24 @@
  */
 package drawing.app;
 
+import java.awt.Graphics2D;
+import javax.swing.JPanel;
+
 /**
  *
  * @author hussein
  */
 public interface Shape {
 
-    void draw();
+    void draw(JPanel panel, Graphics2D g2D);
 
-    void remove();
-
-    float getX();
-
-    float getY();
-
-    String getPosition();
-
-    void setPosition(float x, float y);
+//    void remove();
+//
+//    float getX();
+//
+//    float getY();
+//
+//    String getPosition();
+//
+//    void setPosition(float x, float y);
 }

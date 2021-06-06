@@ -9,6 +9,11 @@ package drawing.app;
  *
  * @author hussein
  */
-public class Position {
-
+public enum ShapesEnum {
+    LINE,
+    RECTANGLE,
+    SQUARE,
+    ECLIPSE,
+    CIRCLE,
+    TRIANGLE,
 }

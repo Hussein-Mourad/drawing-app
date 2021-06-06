@@ -5,13 +5,11 @@
  */
 package drawing.app;
 
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.util.ArrayList;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -21,26 +19,40 @@ public class DrawingPanel extends javax.swing.JPanel {
 
     Graphics2D g2D;
     ArrayList<Rectangle> rectangles = new ArrayList<>();
-    int oldX, oldY, newX, newY;
+    ArrayList<Square> squares = new ArrayList<>();
+    float stroke = 1;
+    Color color = Color.BLACK;
 
     /**
      * Creates new form NewJPanel
      */
     public DrawingPanel() {
-        Icon icon = new ImageIcon("/home/hussein/Downloads/thin-rectangle.png");
         initComponents();
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g2D = (Graphics2D) g;
+        g2D.setColor(color);
+        g2D.fillRect(
+                jButton1.getX() + jButton1.getWidth() + 10,
+                jButton1.getY() + 4,
+                20,
+                20
+        );
 
-        for (Rectangle rec : rectangles) {
-            g2D.draw(rec);
-//            g2D.drawRect(rec.getX(), rec.getY(), (int) rec.getWidth(), (int) rec.getHeight());
+        for (Rectangle rectangle : rectangles) {
+            rectangle.draw(this, g2D);
         }
-//        g2D.drawRect(100, 100, 100, 200);
+
+        for (Square square : squares) {
+            square.draw(this, g2D);
+        }
     }
 
     /**
@@ -52,9 +64,10 @@ public class DrawingPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         button2 = new javax.swing.JToggleButton();
         button1 = new javax.swing.JToggleButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -70,9 +83,6 @@ public class DrawingPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel1.setText("(null, null)");
-
         button2.setText("Square");
         button2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +97,20 @@ public class DrawingPanel extends javax.swing.JPanel {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "5", "10", "24" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("choose color");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,69 +120,48 @@ public class DrawingPanel extends javax.swing.JPanel {
                 .addComponent(button1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(button2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(34, 34, 34))
+                .addGap(26, 26, 26)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(258, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(button1)
-                        .addComponent(button2))
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(button1)
+                    .addComponent(button2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addContainerGap(356, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
-
-//        System.out.println(newRectangle);
         if (button1.isSelected()) {
-            jLabel1.setText("Mouse Pressed: " + evt.getPoint().toString());
-            this.oldX = evt.getX();
-            this.oldY = evt.getY();
-            Rectangle rec = new Rectangle(evt.getX(), evt.getY(), 0, 0);
-            rectangles.add(rec);
-            this.repaint();
+            Rectangle rectangle = new Rectangle(evt.getPoint(), evt.getPoint(), stroke, color);
+            rectangles.add(rectangle);
         }
         if (button2.isSelected()) {
-            jLabel1.setText("Mouse Pressed: " + evt.getPoint().toString());
-            this.oldX = evt.getX();
-            this.oldY = evt.getY();
-            Rectangle rec = new Rectangle(evt.getX(), evt.getY(), 0, 0);
-            rectangles.add(rec);
-            this.repaint();
+            Square square = new Square(evt.getPoint(), evt.getPoint(), stroke, color);
+            squares.add(square);
         }
     }//GEN-LAST:event_mousePressed
 
     private void mouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseReleased
-//        jLabel1.setText("Mouse Rekeased: " + evt.getPoint().toString());
-//        System.out.println(newRectangle);
-
         button1.setSelected(false);
         button2.setSelected(false);
         this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_mouseReleased
 
     private void mouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseDragged
-//        jLabel1.setText("Mouse Dragged: " + evt.getPoint().toString());
-//        System.out.println(newRectangle);
         if (button1.isSelected()) {
-            this.newX = evt.getX();
-            this.newY = evt.getY();
-            rectangles.get(rectangles.size() - 1).width = this.newX - this.oldX;
-            rectangles.get(rectangles.size() - 1).height = this.newY - this.oldY;
-            this.repaint();
+            rectangles.get(rectangles.size() - 1).setBottomCornerPosition(evt.getPoint());
         }
         if (button2.isSelected()) {
-            this.newX = evt.getX();
-            this.newY = evt.getY();
-            rectangles.get(rectangles.size() - 1).width = this.newX - this.oldX;
-            rectangles.get(rectangles.size() - 1).height = this.newX - this.oldX;
-            this.repaint();
+            squares.get(squares.size() - 1).setBottomCornerPosition(evt.getPoint());
         }
     }//GEN-LAST:event_mouseDragged
 
@@ -170,9 +173,19 @@ public class DrawingPanel extends javax.swing.JPanel {
         this.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
     }//GEN-LAST:event_button1ActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        this.stroke = Integer.valueOf((String) jComboBox1.getSelectedItem());
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ColorPicker colorPicker = new ColorPicker(this);
+        colorPicker.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton button1;
     private javax.swing.JToggleButton button2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     // End of variables declaration//GEN-END:variables
 }

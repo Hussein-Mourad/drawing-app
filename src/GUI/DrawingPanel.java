@@ -5,9 +5,8 @@
  */
 package GUI;
 
+import Shapes.Shape;
 import Shapes.ShapesEnum;
-import Shapes.Square;
-import Shapes.Rectangle;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -40,16 +39,11 @@ public class DrawingPanel extends javax.swing.JPanel {
         g2D.fillRect(
                 colorPickerButton.getX() + colorPickerButton.getWidth() + 10,
                 colorPickerButton.getY() + 4,
-                20,
-                20
+                20, 20
         );
 
-        for (Rectangle rectangle : controller.getRectangles()) {
-            rectangle.draw(this, g2D);
-        }
-
-        for (Square square : controller.getSquares()) {
-            square.draw(this, g2D);
+        for (Shape shape : controller.getShapes()) {
+            shape.draw(g2D);
         }
     }
 
@@ -66,6 +60,7 @@ public class DrawingPanel extends javax.swing.JPanel {
         rectangleButton = new javax.swing.JToggleButton();
         strokeDropDown = new javax.swing.JComboBox<>();
         colorPickerButton = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -109,6 +104,13 @@ public class DrawingPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,7 +124,9 @@ public class DrawingPanel extends javax.swing.JPanel {
                 .addComponent(strokeDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(colorPickerButton)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(jButton1)
+                .addContainerGap(148, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +136,8 @@ public class DrawingPanel extends javax.swing.JPanel {
                     .addComponent(rectangleButton)
                     .addComponent(squareButton)
                     .addComponent(strokeDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(colorPickerButton))
+                    .addComponent(colorPickerButton)
+                    .addComponent(jButton1))
                 .addContainerGap(360, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -168,6 +173,10 @@ public class DrawingPanel extends javax.swing.JPanel {
         controller.colorPicker();
     }//GEN-LAST:event_colorPickerButtonActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        action = ShapesEnum.CIRCLE;
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public JButton getColorPickerButton() {
         return colorPickerButton;
     }
@@ -202,6 +211,7 @@ public class DrawingPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton colorPickerButton;
+    private javax.swing.JButton jButton1;
     private javax.swing.JToggleButton rectangleButton;
     private javax.swing.JToggleButton squareButton;
     private javax.swing.JComboBox<String> strokeDropDown;

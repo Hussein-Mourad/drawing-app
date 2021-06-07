@@ -16,10 +16,10 @@ public class MainFrame2 extends javax.swing.JFrame {
      */
     public MainFrame2() {
         initComponents();
-        DrawingPanel jPanel2 = new DrawingPanel();
-        this.add(jPanel2);
+        DrawingPanel panel = new DrawingPanel();
+        this.add(panel);
         jPanel1.setVisible(false);
-        jPanel2.setVisible(true);
+        panel.setVisible(true);
     }
 
     /**

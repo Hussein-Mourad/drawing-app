@@ -10,7 +10,7 @@ package Shapes;
  * @author hussein
  */
 public enum ShapesEnum {
-    LINE,
+    STRAIGHTLINE,
     RECTANGLE,
     SQUARE,
     ELLIPSE,

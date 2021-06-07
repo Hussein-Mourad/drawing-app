@@ -5,9 +5,7 @@
  */
 package GUI;
 
-import Shapes.ShapesEnum;
-import Shapes.Square;
-import Shapes.Rectangle;
+import Shapes.*;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
@@ -19,8 +17,8 @@ import java.util.ArrayList;
  */
 public class DrawingPanelController {
 
-    private ArrayList<Rectangle> rectangles = new ArrayList<>();
-    private ArrayList<Square> squares = new ArrayList<>();
+    private ArrayList<Shape> shapes = new ArrayList<>();
+    private ArrayList<Shape> clearedShape = new ArrayList<>();
     private float stroke = 1;
     private Color color = Color.BLACK;
     private DrawingPanel panel;
@@ -33,11 +31,23 @@ public class DrawingPanelController {
         switch (shape) {
             case RECTANGLE:
                 Rectangle rectangle = new Rectangle(evt.getPoint(), evt.getPoint(), stroke, color);
-                rectangles.add(rectangle);
+                shapes.add(rectangle);
                 break;
             case SQUARE:
                 Square square = new Square(evt.getPoint(), evt.getPoint(), stroke, color);
-                squares.add(square);
+                shapes.add(square);
+                break;
+            case STRAIGHTLINE:
+                StraightLine straightLine = new StraightLine(evt.getPoint(), evt.getPoint(), stroke, color);
+                shapes.add(straightLine);
+                break;
+            case ELLIPSE:
+                Ellipse ellipse = new Ellipse(evt.getPoint(), evt.getPoint(), stroke, color);
+                shapes.add(ellipse);
+                break;
+            case CIRCLE:
+                Circle circle = new Circle(evt.getPoint(), evt.getPoint(), stroke, color);
+                shapes.add(circle);
                 break;
         }
     }
@@ -50,14 +60,7 @@ public class DrawingPanelController {
 
     public void mouseDragged(MouseEvent evt, ShapesEnum shape) {
         panel.repaint();
-        switch (shape) {
-            case RECTANGLE:
-                rectangles.get(rectangles.size() - 1).setBottomCornerPosition(evt.getPoint());
-                break;
-            case SQUARE:
-                squares.get(squares.size() - 1).setBottomCornerPosition(evt.getPoint());
-                break;
-        }
+        shapes.get(shapes.size() - 1).setBottomCornerPosition(evt.getPoint());
     }
 
     public void colorPicker() {
@@ -65,20 +68,12 @@ public class DrawingPanelController {
         colorPicker.setVisible(true);
     }
 
-    public ArrayList<Rectangle> getRectangles() {
-        return rectangles;
+    public ArrayList<Shape> getShapes() {
+        return shapes;
     }
 
-    public void setRectangles(ArrayList<Rectangle> rectangles) {
-        this.rectangles = rectangles;
-    }
-
-    public ArrayList<Square> getSquares() {
-        return squares;
-    }
-
-    public void setSquares(ArrayList<Square> squares) {
-        this.squares = squares;
+    public void setShapes(ArrayList<Shape> shapes) {
+        this.shapes = shapes;
     }
 
     public float getStroke() {

@@ -9,13 +9,12 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import javax.swing.JPanel;
 
 /**
  *
  * @author hussein
  */
-public class Square extends Rectangle implements Shape {
+public class Square extends Rectangle {
 
     int side;
 
@@ -32,16 +31,20 @@ public class Square extends Rectangle implements Shape {
     }
 
     @Override
-    public void draw(JPanel panel, Graphics2D g2D) {
-        int topX = Math.min((int) super.getTopCornerPosition().getX(), (int) super.getBottomCornerPosition().getX());
-        int topY = Math.min((int) super.getTopCornerPosition().getY(), (int) super.getBottomCornerPosition().getY());
-        int bottomX = Math.max((int) super.getTopCornerPosition().getX(), (int) super.getBottomCornerPosition().getX());
-        super.setWidth(Math.abs(bottomX - topX));
-        side = super.getWidth();
-        super.setHeight(side);
-        g2D.setStroke(new BasicStroke(super.getStroke()));
-        g2D.setColor(super.getColor());
-        g2D.drawRect(topX, topY, side, side);
-        panel.repaint();
+    public void draw(Graphics2D g2D) {
+        int bottomX = (int) Math.max(topCornerPosition.getX(), bottomCornerPosition.getX());
+        side = height = width = Math.abs(bottomX - getDrawX());
+        g2D.setStroke(new BasicStroke(stroke));
+        g2D.setColor(color);
+        g2D.drawRect(getDrawX(), getDrawY(), side, side);
     }
+
+    public int getSide() {
+        return side;
+    }
+
+    public void setSide(int side) {
+        this.side = side;
+    }
+
 }

@@ -9,7 +9,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.geom.Line2D;
 
 /**
  *
@@ -39,25 +38,37 @@ public class Triangle extends Shape {
         int y = (int) bottomCornerPosition.getY();
         bottomCornerPosition2 = new Point(x, y);
 
-        g2D.draw(new Line2D.Float(
-                (float) topCornerPosition.getX(),
-                (float) topCornerPosition.getY(),
-                (float) bottomCornerPosition.getX(),
-                (float) bottomCornerPosition.getY()
-        ));
-        g2D.draw(new Line2D.Float(
-                (float) topCornerPosition.getX(),
-                (float) topCornerPosition.getY(),
-                (float) bottomCornerPosition2.getX(),
-                (float) bottomCornerPosition2.getY()
-        ));
-        g2D.draw(new Line2D.Float(
-                (float) bottomCornerPosition2.getX(),
-                (float) bottomCornerPosition2.getY(),
-                (float) bottomCornerPosition.getX(),
-                (float) bottomCornerPosition2.getY()
-        ));
+        int[] xPoints = {
+            (int) topCornerPosition.getX(),
+            (int) bottomCornerPosition.getX(),
+            (int) bottomCornerPosition2.getX()
+        };
+        int[] yPoints = {
+            (int) topCornerPosition.getY(),
+            (int) bottomCornerPosition.getY(),
+            (int) bottomCornerPosition2.getY()
+        };
 
+        g2D.drawPolygon(xPoints, yPoints, 3);
+
+//        g2D.draw(new Line2D.Float(
+//                (float) topCornerPosition.getX(),
+//                (float) topCornerPosition.getY(),
+//                (float) bottomCornerPosition.getX(),
+//                (float) bottomCornerPosition.getY()
+//        ));
+//        g2D.draw(new Line2D.Float(
+//                (float) topCornerPosition.getX(),
+//                (float) topCornerPosition.getY(),
+//                (float) bottomCornerPosition2.getX(),
+//                (float) bottomCornerPosition2.getY()
+//        ));
+//        g2D.draw(new Line2D.Float(
+//                (float) bottomCornerPosition2.getX(),
+//                (float) bottomCornerPosition2.getY(),
+//                (float) bottomCornerPosition.getX(),
+//                (float) bottomCornerPosition2.getY()
+//        ));
     }
 
 }

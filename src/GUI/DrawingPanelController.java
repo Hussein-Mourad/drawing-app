@@ -41,6 +41,10 @@ public class DrawingPanelController {
                 StraightLine straightLine = new StraightLine(evt.getPoint(), evt.getPoint(), stroke, color);
                 shapes.add(straightLine);
                 break;
+            case FREELINE:
+                StraightLine straightLine = new StraightLine(evt.getPoint(), evt.getPoint(), stroke, color);
+                shapes.add(straightLine);
+                break;
             case ELLIPSE:
                 Ellipse ellipse = new Ellipse(evt.getPoint(), evt.getPoint(), stroke, color);
                 shapes.add(ellipse);

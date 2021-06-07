@@ -11,6 +11,7 @@ package Shapes;
  */
 public enum ShapesEnum {
     STRAIGHTLINE,
+    FREELINE,
     RECTANGLE,
     SQUARE,
     ELLIPSE,

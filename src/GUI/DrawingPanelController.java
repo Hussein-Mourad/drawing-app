@@ -49,6 +49,10 @@ public class DrawingPanelController {
                 Circle circle = new Circle(evt.getPoint(), evt.getPoint(), stroke, color);
                 shapes.add(circle);
                 break;
+            case TRIANGLE:
+                Triangle triangle = new Triangle(evt.getPoint(), evt.getPoint(), stroke, color);
+                shapes.add(triangle);
+                break;
         }
     }
 

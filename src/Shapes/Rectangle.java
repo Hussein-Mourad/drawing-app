@@ -26,6 +26,12 @@ public class Rectangle extends Shape {
         super(topCornerPosition, bottomCornerPosition, stroke, color);
     }
 
+//    public Rectangle(Point topCornerPosition, int width, int height, float stroke, Color color) {
+//        int x = (int) topCornerPosition.getX() + width;
+//        int y = (int) topCornerPosition.getY() + height;
+//        Point bottomPoint = new Point(x, y);
+//        super(topCornerPosition, bottomPoint, stroke, color);
+//    }
     @Override
     public void draw(Graphics2D g2D) {
         width = Math.abs((int) (bottomCornerPosition.getX() - topCornerPosition.getX()));

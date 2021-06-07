@@ -33,14 +33,12 @@ public class StraightLine extends Shape {
     public void draw(Graphics2D g2D) {
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
-        g2D.draw(
-                new Line2D.Float(
-                        (float) topCornerPosition.getX(),
-                        (float) topCornerPosition.getY(),
-                        (float) bottomCornerPosition.getX(),
-                        (float) bottomCornerPosition.getY()
-                )
-        );
+        g2D.draw(new Line2D.Float(
+                (float) topCornerPosition.getX(),
+                (float) topCornerPosition.getY(),
+                (float) bottomCornerPosition.getX(),
+                (float) bottomCornerPosition.getY()
+        ));
 
     }
 }

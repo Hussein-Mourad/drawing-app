@@ -30,13 +30,22 @@ public class Square extends Rectangle {
         super(topCornerPosition, bottomCornerPosition, stroke, color);
     }
 
+    public Square(Point topCornerPosition, Point bottomCornerPosition, float stroke, Color color, boolean fill) {
+        super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
+    }
+
     @Override
     public void draw(Graphics2D g2D) {
-        int bottomX =  Math.max(topCornerPosition.x, bottomCornerPosition.x);
+        int bottomX = Math.max(topCornerPosition.x, bottomCornerPosition.x);
         side = height = width = Math.abs(bottomX - getDrawX());
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
-        g2D.drawRect(getDrawX(), getDrawY(), side, side);
+
+        if (fill) {
+            g2D.fillRect(getDrawX(), getDrawY(), width, height);
+        } else {
+            g2D.drawRect(getDrawX(), getDrawY(), width, height);
+        }
     }
 
     public int getSide() {

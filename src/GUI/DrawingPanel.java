@@ -28,7 +28,6 @@ public class DrawingPanel extends javax.swing.JPanel {
      * Creates new form NewJPanel
      */
     public DrawingPanel() {
-
         initComponents();
     }
 
@@ -58,6 +57,7 @@ public class DrawingPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         squareButton = new javax.swing.JToggleButton();
         rectangleButton = new javax.swing.JToggleButton();
         strokeDropDown = new javax.swing.JComboBox<>();
@@ -68,6 +68,7 @@ public class DrawingPanel extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
 
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -156,6 +157,13 @@ public class DrawingPanel extends javax.swing.JPanel {
             }
         });
 
+        jCheckBox1.setText("Fill");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,6 +171,7 @@ public class DrawingPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jCheckBox1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -209,7 +218,9 @@ public class DrawingPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jButton6)))
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox1)
+                .addContainerGap(250, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -283,6 +294,14 @@ public class DrawingPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_formMouseMoved
 
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if (jCheckBox1.isSelected()) {
+            controller.setFill(true);
+        } else {
+            controller.setFill(true);
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
     public JButton getColorPickerButton() {
         return colorPickerButton;
     }
@@ -316,6 +335,7 @@ public class DrawingPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton colorPickerButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -323,6 +343,7 @@ public class DrawingPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JToggleButton rectangleButton;
     private javax.swing.JToggleButton squareButton;
     private javax.swing.JComboBox<String> strokeDropDown;

@@ -26,6 +26,10 @@ public class Rectangle extends Shape {
         super(topCornerPosition, bottomCornerPosition, stroke, color);
     }
 
+    public Rectangle(Point topCornerPosition, Point bottomCornerPosition, float stroke, Color color, boolean fill) {
+        super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
+    }
+
 //    public Rectangle(Point topCornerPosition, int width, int height, float stroke, Color color) {
 //        int x = (int) topCornerPosition.getX() + width;
 //        int y = (int) topCornerPosition.getY() + height;
@@ -38,7 +42,17 @@ public class Rectangle extends Shape {
         height = Math.abs((bottomCornerPosition.y - topCornerPosition.y));
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
-        g2D.drawRect(getDrawX(), getDrawY(), width, height);
+
+        if (fill) {
+            g2D.fillRect(getDrawX(), getDrawY(), width, height);
+        } else {
+            g2D.drawRect(getDrawX(), getDrawY(), width, height);
+        }
+    }
+
+    public void move(Point currentPt, Point prevPt) {
+        topCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);
+        prevPt = currentPt;
     }
 
     public int getWidth() {

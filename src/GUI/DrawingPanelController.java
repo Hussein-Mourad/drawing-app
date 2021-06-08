@@ -21,8 +21,10 @@ public class DrawingPanelController {
     private ArrayList<Shape> clearedShape = new ArrayList<>();
     private float stroke = 1;
     private Color color = Color.BLACK;
+    private boolean fill = false;
     private DrawingPanel panel;
     private FreeLine tmpLine;
+    private Shape tmpShape;
 
     public DrawingPanelController(DrawingPanel panel) {
         this.panel = panel;
@@ -34,11 +36,11 @@ public class DrawingPanelController {
         }
         switch (shape) {
             case RECTANGLE:
-                Rectangle rectangle = new Rectangle(evt.getPoint(), evt.getPoint(), stroke, color);
+                Rectangle rectangle = new Rectangle(evt.getPoint(), evt.getPoint(), stroke, color, fill);
                 shapes.add(rectangle);
                 break;
             case SQUARE:
-                Square square = new Square(evt.getPoint(), evt.getPoint(), stroke, color);
+                Square square = new Square(evt.getPoint(), evt.getPoint(), stroke, color, fill);
                 shapes.add(square);
                 break;
             case STRAIGHTLINE:
@@ -51,15 +53,15 @@ public class DrawingPanelController {
                 tmpLine.addPoint(evt.getPoint());
                 break;
             case ELLIPSE:
-                Ellipse ellipse = new Ellipse(evt.getPoint(), evt.getPoint(), stroke, color);
+                Ellipse ellipse = new Ellipse(evt.getPoint(), evt.getPoint(), stroke, color, fill);
                 shapes.add(ellipse);
                 break;
             case CIRCLE:
-                Circle circle = new Circle(evt.getPoint(), evt.getPoint(), stroke, color);
+                Circle circle = new Circle(evt.getPoint(), evt.getPoint(), stroke, color, fill);
                 shapes.add(circle);
                 break;
             case TRIANGLE:
-                Triangle triangle = new Triangle(evt.getPoint(), evt.getPoint(), stroke, color);
+                Triangle triangle = new Triangle(evt.getPoint(), evt.getPoint(), stroke, color, fill);
                 shapes.add(triangle);
                 break;
             default:
@@ -120,4 +122,11 @@ public class DrawingPanelController {
         this.color = color;
     }
 
+    public boolean isFill() {
+        return fill;
+    }
+
+    public void setFill(boolean fill) {
+        this.fill = fill;
+    }
 }

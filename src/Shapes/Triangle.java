@@ -30,6 +30,10 @@ public class Triangle extends Shape {
         super(topCornerPosition, bottomCornerPosition, stroke, color);
     }
 
+    public Triangle(Point topCornerPosition, Point bottomCornerPosition, float stroke, Color color, boolean fill) {
+        super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
+    }
+
     @Override
     public void draw(Graphics2D g2D) {
         g2D.setStroke(new BasicStroke(stroke));
@@ -49,26 +53,11 @@ public class Triangle extends Shape {
             bottomCornerPosition2.y
         };
 
-        g2D.drawPolygon(xPoints, yPoints, 3);
-
-//        g2D.draw(new Line2D.Float(
-//                (float) topCornerPosition.getX(),
-//                (float) topCornerPosition.getY(),
-//                (float) bottomCornerPosition.getX(),
-//                (float) bottomCornerPosition.getY()
-//        ));
-//        g2D.draw(new Line2D.Float(
-//                (float) topCornerPosition.getX(),
-//                (float) topCornerPosition.getY(),
-//                (float) bottomCornerPosition2.getX(),
-//                (float) bottomCornerPosition2.getY()
-//        ));
-//        g2D.draw(new Line2D.Float(
-//                (float) bottomCornerPosition2.getX(),
-//                (float) bottomCornerPosition2.getY(),
-//                (float) bottomCornerPosition.getX(),
-//                (float) bottomCornerPosition2.getY()
-//        ));
+        if (fill) {
+            g2D.fillPolygon(xPoints, yPoints, 3);
+        } else {
+            g2D.drawPolygon(xPoints, yPoints, 3);
+        }
     }
 
 }

@@ -19,6 +19,7 @@ public abstract class Shape {
     Color color = Color.BLACK;
     Point topCornerPosition;
     Point bottomCornerPosition;
+    boolean fill = false;
 
     public Shape(Point topCornerPosition, Point bottomCornerPosition) {
         this.topCornerPosition = topCornerPosition;
@@ -36,6 +37,14 @@ public abstract class Shape {
         this.bottomCornerPosition = bottomCornerPosition;
         this.stroke = stroke;
         this.color = color;
+    }
+
+    public Shape(Point topCornerPosition, Point bottomCornerPosition, float stroke, Color color, boolean fill) {
+        this.topCornerPosition = topCornerPosition;
+        this.bottomCornerPosition = bottomCornerPosition;
+        this.stroke = stroke;
+        this.color = color;
+        this.fill = fill;
     }
 
     public abstract void draw(Graphics2D g2D);
@@ -107,6 +116,14 @@ public abstract class Shape {
 
     public double getY() {
         return topCornerPosition.getY();
+    }
+
+    public boolean isFill() {
+        return fill;
+    }
+
+    public void setFill(boolean fill) {
+        this.fill = fill;
     }
 
 }

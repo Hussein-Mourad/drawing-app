@@ -18,7 +18,6 @@ import java.awt.geom.Ellipse2D;
 public class Circle extends Ellipse {
 
     private int diameter;
-    private Point center;
 
     public Circle(Point topCornerPosition, Point bottomCornerPosition) {
         super(topCornerPosition, bottomCornerPosition);
@@ -32,32 +31,24 @@ public class Circle extends Ellipse {
         super(topCornerPosition, bottomCornerPosition, stroke, color);
     }
 
-    @Override
-    public void draw(Graphics2D g2D) {
-        diameter = Math.abs(bottomCornerPosition.x - topCornerPosition.x);
-        center = new Point(
-                bottomCornerPosition.x - topCornerPosition.x,
-                bottomCornerPosition.y - topCornerPosition.y
-        );
-        g2D.setStroke(new BasicStroke(stroke));
-        g2D.setColor(color);
-        Ellipse2D.Float circle = new Ellipse2D.Float(getDrawX(), getDrawY(), diameter, diameter);
-        g2D.draw(circle);
-//        g2D.drawOval(getDrawX(), getDrawY(), diameter, diameter);
+    public Circle(Point topCornerPosition, Point bottomCornerPosition, float stroke, Color color, boolean fill) {
+        super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
     }
 
     @Override
-    public boolean isMouseInside(Point mousePosition) {
+    public void draw(Graphics2D g2D) {
+        diameter = Math.abs(bottomCornerPosition.x - topCornerPosition.x);
 
-//        if () {
-//            if (mousePosition.x >= topCornerPosition.x
-//                    && mousePosition.x <= bottomCornerPosition.x
-//                    && mousePosition.y >= topCornerPosition.y
-//                    && mousePosition.y <= bottomCornerPosition.y) {
-//                return true;
-//            }
-//        }
-        return false;
+        g2D.setStroke(new BasicStroke(stroke));
+        g2D.setColor(color);
+
+        super.ellipse = new Ellipse2D.Float(getDrawX(), getDrawY(), diameter, diameter);
+
+        if (fill) {
+            g2D.fill(super.ellipse);
+        } else {
+            g2D.draw(super.ellipse);
+        }
     }
 
     public double getDiameter() {

@@ -32,7 +32,7 @@ public class Square extends Rectangle {
 
     @Override
     public void draw(Graphics2D g2D) {
-        int bottomX = (int) Math.max(topCornerPosition.getX(), bottomCornerPosition.getX());
+        int bottomX =  Math.max(topCornerPosition.x, bottomCornerPosition.x);
         side = height = width = Math.abs(bottomX - getDrawX());
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);

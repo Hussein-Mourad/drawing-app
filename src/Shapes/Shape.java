@@ -43,12 +43,22 @@ public abstract class Shape {
 //    abstract void resize();
 //    abstract void area();
 
+    public boolean isMouseInside(Point mousePosition) {
+        if (mousePosition.x >= topCornerPosition.x
+                && mousePosition.x <= bottomCornerPosition.x
+                && mousePosition.y >= topCornerPosition.y
+                && mousePosition.y <= bottomCornerPosition.y) {
+            return true;
+        }
+        return false;
+    }
+
     int getDrawX() {
-        return (int) Math.min(topCornerPosition.getX(), bottomCornerPosition.getX());
+        return Math.min(topCornerPosition.x, bottomCornerPosition.x);
     }
 
     int getDrawY() {
-        return (int) Math.min(topCornerPosition.getY(), bottomCornerPosition.getY());
+        return Math.min(topCornerPosition.y, bottomCornerPosition.y);
     }
 
     public float getStroke() {
@@ -91,12 +101,12 @@ public abstract class Shape {
         topCornerPosition.setLocation(p);
     }
 
-    public int getX() {
-        return (int) topCornerPosition.getX();
+    public double getX() {
+        return topCornerPosition.getX();
     }
 
-    public int getY() {
-        return (int) topCornerPosition.getY();
+    public double getY() {
+        return topCornerPosition.getY();
     }
 
 }

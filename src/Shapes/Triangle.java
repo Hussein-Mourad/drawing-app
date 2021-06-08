@@ -34,19 +34,19 @@ public class Triangle extends Shape {
     public void draw(Graphics2D g2D) {
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
-        int x = (int) (topCornerPosition.getX() - (bottomCornerPosition.getX() - topCornerPosition.getX()));
-        int y = (int) bottomCornerPosition.getY();
+        int x = (topCornerPosition.x - (bottomCornerPosition.x - topCornerPosition.x));
+        int y = bottomCornerPosition.y;
         bottomCornerPosition2 = new Point(x, y);
 
         int[] xPoints = {
-            (int) topCornerPosition.getX(),
-            (int) bottomCornerPosition.getX(),
-            (int) bottomCornerPosition2.getX()
+            topCornerPosition.x,
+            bottomCornerPosition.x,
+            bottomCornerPosition2.x
         };
         int[] yPoints = {
-            (int) topCornerPosition.getY(),
-            (int) bottomCornerPosition.getY(),
-            (int) bottomCornerPosition2.getY()
+            topCornerPosition.y,
+            bottomCornerPosition.y,
+            bottomCornerPosition2.y
         };
 
         g2D.drawPolygon(xPoints, yPoints, 3);

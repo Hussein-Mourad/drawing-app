@@ -22,12 +22,16 @@ public class DrawingPanelController {
     private float stroke = 1;
     private Color color = Color.BLACK;
     private DrawingPanel panel;
+    private FreeLine tmpLine;
 
     public DrawingPanelController(DrawingPanel panel) {
         this.panel = panel;
     }
 
     public void mousePressed(MouseEvent evt, ShapesEnum shape) {
+        if (shape == null) {
+            return;
+        }
         switch (shape) {
             case RECTANGLE:
                 Rectangle rectangle = new Rectangle(evt.getPoint(), evt.getPoint(), stroke, color);
@@ -42,8 +46,9 @@ public class DrawingPanelController {
                 shapes.add(straightLine);
                 break;
             case FREELINE:
-                StraightLine straightLine = new StraightLine(evt.getPoint(), evt.getPoint(), stroke, color);
-                shapes.add(straightLine);
+                tmpLine = new FreeLine(evt.getPoint(), evt.getPoint(), stroke, color);
+                shapes.add(tmpLine);
+                tmpLine.addPoint(evt.getPoint());
                 break;
             case ELLIPSE:
                 Ellipse ellipse = new Ellipse(evt.getPoint(), evt.getPoint(), stroke, color);
@@ -57,6 +62,8 @@ public class DrawingPanelController {
                 Triangle triangle = new Triangle(evt.getPoint(), evt.getPoint(), stroke, color);
                 shapes.add(triangle);
                 break;
+            default:
+                break;
         }
     }
 
@@ -64,11 +71,19 @@ public class DrawingPanelController {
         panel.getRectangleButton().setSelected(false);
         panel.getSquareButton().setSelected(false);
         panel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        tmpLine = null;
     }
 
     public void mouseDragged(MouseEvent evt, ShapesEnum shape) {
-        panel.repaint();
+        if (shape == null) {
+            return;
+        }
         shapes.get(shapes.size() - 1).setBottomCornerPosition(evt.getPoint());
+        if (tmpLine != null) {
+            tmpLine.addPoint(evt.getPoint());
+        }
+        panel.repaint();
+
     }
 
     public void colorPicker() {
@@ -78,6 +93,11 @@ public class DrawingPanelController {
 
     public ArrayList<Shape> getShapes() {
         return shapes;
+    }
+
+    public void clearShapes() {
+        shapes = new ArrayList<>();
+        panel.repaint();
     }
 
     public void setShapes(ArrayList<Shape> shapes) {

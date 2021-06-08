@@ -33,8 +33,8 @@ public class Ellipse extends Shape {
 
     @Override
     public void draw(Graphics2D g2D) {
-        width = Math.abs((int) (bottomCornerPosition.getX() - topCornerPosition.getX()));
-        height = Math.abs((int) (bottomCornerPosition.getY() - topCornerPosition.getY()));
+        width = Math.abs((bottomCornerPosition.x - topCornerPosition.x));
+        height = Math.abs((bottomCornerPosition.y- topCornerPosition.y));
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
         g2D.drawOval(getDrawX(), getDrawY(), width, height);

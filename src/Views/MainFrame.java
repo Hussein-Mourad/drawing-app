@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package Views;
 
 /**
  *
  * @author hussein
  */
 public class MainFrame extends javax.swing.JFrame {
+
+    DrawingPanelController controller;
 
     /**
      * Creates new form NewJFrame1
@@ -20,6 +22,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.add(panel);
         jPanel1.setVisible(false);
         panel.setVisible(true);
+        controller = DrawingPanelController.getInstance(panel);
     }
 
     /**
@@ -31,7 +34,22 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jPanel1 = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        newProjectMenuItem = new javax.swing.JMenuItem();
+        saveProjectMenuItem = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        undoButtonMenu = new javax.swing.JMenuItem();
+        redoButtonMenu = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Paint App");
@@ -42,17 +60,103 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 861, Short.MAX_VALUE)
+            .addGap(0, 953, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
+            .addGap(0, 484, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
+        jMenu1.setText("File");
+
+        newProjectMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        newProjectMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Images/outline_add_black_18dp.png"))); // NOI18N
+        newProjectMenuItem.setText("New Project");
+        jMenu1.add(newProjectMenuItem);
+
+        saveProjectMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        saveProjectMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Images/outline_save_black_18dp.png"))); // NOI18N
+        saveProjectMenuItem.setText("Save Project");
+        jMenu1.add(saveProjectMenuItem);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu3.setText("Edit");
+
+        undoButtonMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        undoButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Images/outline_undo_black_18dp.png"))); // NOI18N
+        undoButtonMenu.setText("Undo");
+        undoButtonMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                undoButtonMenuActionPerformed(evt);
+            }
+        });
+        jMenu3.add(undoButtonMenu);
+
+        redoButtonMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        redoButtonMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Images/outline_redo_black_18dp.png"))); // NOI18N
+        redoButtonMenu.setText("Redo");
+        redoButtonMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                redoButtonMenuActionPerformed(evt);
+            }
+        });
+        jMenu3.add(redoButtonMenu);
+        jMenu3.add(jSeparator1);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Images/outline_content_cut_black_18dp.png"))); // NOI18N
+        jMenuItem3.setText("Cut");
+        jMenu3.add(jMenuItem3);
+
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Images/outline_content_copy_black_18dp.png"))); // NOI18N
+        jMenuItem4.setText("Copy");
+        jMenu3.add(jMenuItem4);
+
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Images/outline_content_paste_black_18dp.png"))); // NOI18N
+        jMenuItem5.setText("Paste");
+        jMenu3.add(jMenuItem5);
+
+        jMenuItem6.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Images/outline_delete_black_18dp.png"))); // NOI18N
+        jMenuItem6.setText("Delete");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem6);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu2.setText("Help");
+
+        aboutMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assests/Images/outline_info_black_18dp.png"))); // NOI18N
+        aboutMenuItem.setText("About");
+        jMenu2.add(aboutMenuItem);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void redoButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redoButtonMenuActionPerformed
+        controller.redo();
+    }//GEN-LAST:event_redoButtonMenuActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void undoButtonMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoButtonMenuActionPerformed
+        controller.undo();
+    }//GEN-LAST:event_undoButtonMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,6 +257,21 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenuItem newProjectMenuItem;
+    private javax.swing.JMenuItem redoButtonMenu;
+    private javax.swing.JMenuItem saveProjectMenuItem;
+    private javax.swing.JMenuItem undoButtonMenu;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Shapes;
+package Models.Shapes;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -32,6 +32,11 @@ public class Triangle extends Shape {
 
     public Triangle(Point topCornerPosition, Point bottomCornerPosition, float stroke, Color color, boolean fill) {
         super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
+    }
+
+    public Triangle(Triangle copy, Point mousePosition) { // copy constructor
+        super(copy, mousePosition);
+        this.bottomCornerPosition2 = copy.bottomCornerPosition2;
     }
 
     @Override

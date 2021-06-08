@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Shapes;
+package Models.Shapes;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -33,6 +33,11 @@ public class Circle extends Ellipse {
 
     public Circle(Point topCornerPosition, Point bottomCornerPosition, float stroke, Color color, boolean fill) {
         super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
+    }
+
+    public Circle(Circle copy, Point mousePosition) { // copy constructor
+        super(copy, mousePosition);
+        this.diameter = copy.diameter;
     }
 
     @Override

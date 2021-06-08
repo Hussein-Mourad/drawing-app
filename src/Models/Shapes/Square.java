@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Shapes;
+package Models.Shapes;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -32,6 +32,11 @@ public class Square extends Rectangle {
 
     public Square(Point topCornerPosition, Point bottomCornerPosition, float stroke, Color color, boolean fill) {
         super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
+    }
+
+    public Square(Square copy,
+            Point mousePosition) { // copy constructor
+        super(copy, mousePosition);
     }
 
     @Override

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Shapes;
+package Models.Shapes;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -47,9 +47,16 @@ public abstract class Shape {
         this.fill = fill;
     }
 
+    public Shape(Shape copy, Point mousePosition) { // copy constructor
+        this.stroke = copy.stroke;
+        this.color = copy.color;
+        this.topCornerPosition = mousePosition;
+        this.bottomCornerPosition = copy.bottomCornerPosition;
+        this.fill = copy.fill;
+    }
+
     public abstract void draw(Graphics2D g2D);
 
-//    public abstract void move(Point currentPt, Point prevPt);
     public void move(Point currentPt, Point prevPt) {
         topCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);
         bottomCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);

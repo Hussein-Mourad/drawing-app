@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Shapes;
+package Models.Shapes;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -28,6 +28,11 @@ public class FreeLine extends Shape {
 
     public FreeLine(Point topCornerPosition, Point bottomCornerPosition, float stroke, Color color) {
         super(topCornerPosition, bottomCornerPosition, stroke, color);
+    }
+
+    public FreeLine(FreeLine copy, Point mousePosition) { // copy constructor
+        super(copy, mousePosition);
+        this.path = copy.path;
     }
 
     @Override

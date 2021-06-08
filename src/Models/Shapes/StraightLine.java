@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Shapes;
+package Models.Shapes;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -27,6 +27,10 @@ public class StraightLine extends Shape {
 
     public StraightLine(Point topCornerPosition, Point bottomCornerPosition, float stroke, Color color) {
         super(topCornerPosition, bottomCornerPosition, stroke, color);
+    }
+
+    public StraightLine(StraightLine copy, Point mousePosition) { // copy constructor
+        super(copy, mousePosition);
     }
 
     @Override

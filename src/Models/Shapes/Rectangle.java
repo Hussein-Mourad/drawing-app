@@ -1,4 +1,4 @@
-package Shapes;
+package Models.Shapes;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -30,12 +30,12 @@ public class Rectangle extends Shape {
         super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
     }
 
-//    public Rectangle(Point topCornerPosition, int width, int height, float stroke, Color color) {
-//        int x = (int) topCornerPosition.getX() + width;
-//        int y = (int) topCornerPosition.getY() + height;
-//        Point bottomPoint = new Point(x, y);
-//        super(topCornerPosition, bottomPoint, stroke, color);
-//    }
+    public Rectangle(Rectangle copy, Point mousePosition) { // copy constructor
+        super(copy, mousePosition);
+        this.width = copy.width;
+        this.height = copy.height;
+    }
+
     @Override
     public void draw(Graphics2D g2D) {
         width = Math.abs((bottomCornerPosition.x - topCornerPosition.x));
@@ -50,11 +50,6 @@ public class Rectangle extends Shape {
         }
     }
 
-//    @Override
-//    public void move(Point currentPt, Point prevPt) {
-//        topCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);
-//        bottomCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);
-//    }
     public int getWidth() {
         return width;
     }

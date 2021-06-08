@@ -50,11 +50,11 @@ public class Rectangle extends Shape {
         }
     }
 
-    public void move(Point currentPt, Point prevPt) {
-        topCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);
-        prevPt = currentPt;
-    }
-
+//    @Override
+//    public void move(Point currentPt, Point prevPt) {
+//        topCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);
+//        bottomCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);
+//    }
     public int getWidth() {
         return width;
     }

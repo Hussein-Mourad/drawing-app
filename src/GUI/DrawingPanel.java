@@ -10,6 +10,7 @@ import Shapes.ShapesEnum;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -69,6 +70,7 @@ public class DrawingPanel extends javax.swing.JPanel {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
 
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -164,6 +166,13 @@ public class DrawingPanel extends javax.swing.JPanel {
             }
         });
 
+        jCheckBox2.setText("move");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,7 +180,10 @@ public class DrawingPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jCheckBox1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jCheckBox2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -219,13 +231,19 @@ public class DrawingPanel extends javax.swing.JPanel {
                         .addGap(3, 3, 3)
                         .addComponent(jButton6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jCheckBox2))
                 .addContainerGap(250, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private Point prevPt;
+    private boolean isMoving = false;
+
     private void mousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mousePressed
         controller.mousePressed(evt, action);
+//        prevPt = evt.getPoint();
     }//GEN-LAST:event_mousePressed
 
     private void mouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseReleased
@@ -235,6 +253,7 @@ public class DrawingPanel extends javax.swing.JPanel {
 
     private void mouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseDragged
         controller.mouseDragged(evt, action);
+//            this.cornerPt.translate((int) (current.getX() - prev.getX()), (int) (current.getY() - prev.getY()));
 
     }//GEN-LAST:event_mouseDragged
 
@@ -282,25 +301,24 @@ public class DrawingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
-        for (Shape shape : controller.getShapes()) {
-            if (shape.isMouseInside(evt.getPoint())) {
-                setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-                System.out.println("true");
-            } else {
-                System.out.println("false");
-                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-
-            }
-        }
+        controller.mouseMoved(evt);
     }//GEN-LAST:event_formMouseMoved
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         if (jCheckBox1.isSelected()) {
             controller.setFill(true);
         } else {
-            controller.setFill(true);
+            controller.setFill(false);
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        if (jCheckBox2.isSelected()) {
+            controller.setDragMode(true);
+        } else {
+            controller.setDragMode(false);
+        }
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     public JButton getColorPickerButton() {
         return colorPickerButton;
@@ -344,6 +362,7 @@ public class DrawingPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JToggleButton rectangleButton;
     private javax.swing.JToggleButton squareButton;
     private javax.swing.JComboBox<String> strokeDropDown;

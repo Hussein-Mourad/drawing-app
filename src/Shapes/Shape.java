@@ -48,6 +48,12 @@ public abstract class Shape {
     }
 
     public abstract void draw(Graphics2D g2D);
+
+//    public abstract void move(Point currentPt, Point prevPt);
+    public void move(Point currentPt, Point prevPt) {
+        topCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);
+        bottomCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);
+    }
 //    abstract void move();
 //    abstract void resize();
 //    abstract void area();

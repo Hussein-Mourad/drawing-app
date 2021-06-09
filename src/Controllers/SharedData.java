@@ -8,8 +8,10 @@ package Controllers;
 import Models.Shapes.FreeLine;
 import Models.Shapes.Shape;
 import Views.DrawingPanel;
+import Views.Mode;
 import java.awt.Color;
 import java.awt.Point;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -18,15 +20,19 @@ import java.util.ArrayList;
  */
 class SharedData {
 
+    static Mode mode;
+    static State currentState;
     static ArrayList<Shape> shapes = new ArrayList<>();
-    static ArrayList<Shape> clearedShape = new ArrayList<>();
-    static float stroke = 1;
+    static Shape copiedShape;
+    static float lineStroke = 1;
+    static float brushStroke = 10;
+    static float eraserStroke = 10;
     static Color color = Color.BLACK;
     static boolean fill = false;
     static DrawingPanel panel;
-    static FreeLine tmpLine;
+    static FreeLine currentDrawnLine;
     static Shape tmpShape;
-    static boolean dragMode = false;
     static Shape currentMovingShape;
     static Point currentMovingShapePrevPt;
+    static String imgFolder = "src" + File.separator + "Assets" + File.separator + "Images" + File.separator;
 }

@@ -9,12 +9,20 @@ package Views;
  *
  * @author hussein
  */
-public enum Modes {
+public enum Mode {
+    DEFAULT,
+    INSERT_LINE,
+    INSERT_PENCIL,
+    INSERT_BRUSH,
+    INSERT_RECTANLE,
+    INSERT_SQUARE,
+    INSERT_CIRCLE,
+    INSERT_ELLIPSE,
+    INSERT_TRIANGLE,
     FILL,
-    INSERT,
+    ERASER,
     DELETE,
     MOVE,
     COPY,
     PASTE
-
 }

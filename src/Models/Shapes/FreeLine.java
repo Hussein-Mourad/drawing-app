@@ -5,6 +5,7 @@
  */
 package Models.Shapes;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -37,6 +38,8 @@ public class FreeLine extends Shape {
 
     @Override
     public void draw(Graphics2D g2D) {
+        g2D.setStroke(new BasicStroke(stroke));
+        g2D.setColor(color);
         Point from = null;
         for (Point to : path) {
             if (from != null) {

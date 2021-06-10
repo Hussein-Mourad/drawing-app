@@ -43,22 +43,22 @@ public class Square extends Rectangle {
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
 
-        if (!copied) {
-            int bottomX = Math.max(topCornerPosition.x, bottomCornerPosition.x);
-            side = height = width = Math.abs(bottomX - getDrawX());
-            if (filled) {
-                g2D.fillRect(getDrawX(), getDrawY(), width, height);
-            } else {
-                g2D.drawRect(getDrawX(), getDrawY(), width, height);
-            }
+//        if (!copied) {
+        int bottomX = Math.max(topCornerPosition.x, bottomCornerPosition.x);
+        side = height = width = Math.abs(bottomX - getDrawX());
+        if (filled) {
+            g2D.fillRect(getDrawX(), getDrawY(), width, height);
         } else {
-            side = height = width;
-            if (filled) {
-                g2D.fillRect(topCornerPosition.x, topCornerPosition.y, width, height);
-            } else {
-                g2D.drawRect(topCornerPosition.x, topCornerPosition.y, width, height);
-            }
+            g2D.drawRect(getDrawX(), getDrawY(), width, height);
         }
+//        } else {
+//            side = height = width;
+//            if (filled) {
+//                g2D.fillRect(topCornerPosition.x, topCornerPosition.y, width, height);
+//            } else {
+//                g2D.drawRect(topCornerPosition.x, topCornerPosition.y, width, height);
+//            }
+//        }
 
     }
 

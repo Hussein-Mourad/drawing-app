@@ -206,9 +206,14 @@ public class DrawingPanelController {
             return;
         }
         pasteShape.setTopCornerPosition(mousePosition);
+        pasteShape.setBottomCornerPosition(new Point(mousePosition.x + pasteShape.width, mousePosition.y + pasteShape.height));
         SharedData.shapes.add(pasteShape);
         this.currentState = new State(SharedData.shapes);
         SharedData.panel.repaint();
+    }
+
+    public void moveShapetoPos(Shape shape) {
+        shape.setTopCornerPosition(mousePosition);
     }
 
     public void deleteShape() {

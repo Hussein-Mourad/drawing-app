@@ -20,6 +20,7 @@ public abstract class Shape {
     Point topCornerPosition;
     Point bottomCornerPosition;
     boolean filled = false;
+    public int width, height;
 //    boolean copied = false;
 
     public Shape(Point topCornerPosition, Point bottomCornerPosition) {
@@ -54,6 +55,8 @@ public abstract class Shape {
         this.topCornerPosition = copy.topCornerPosition;
         this.bottomCornerPosition = copy.bottomCornerPosition;
         this.filled = copy.filled;
+        this.width = copy.width;
+        this.height = copy.height;
 //        this.copied = true;
     }
 

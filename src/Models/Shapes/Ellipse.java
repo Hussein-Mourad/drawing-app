@@ -17,8 +17,8 @@ import java.awt.geom.Ellipse2D;
  */
 public class Ellipse extends Shape {
 
-    private int width;
-    private int height;
+    int width;
+    int height;
     Ellipse2D.Float ellipse;
 
     public Ellipse(Point topCornerPosition, Point bottomCornerPosition) {

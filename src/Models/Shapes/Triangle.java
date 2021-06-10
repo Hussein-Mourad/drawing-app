@@ -17,6 +17,9 @@ import java.awt.Point;
 public class Triangle extends Shape {
 
     private Point bottomCornerPosition2;
+//    private int leftSide;
+//    private int rightSide;
+//    private int bottomSide;
 
     public Triangle(Point topCornerPosition, Point bottomCornerPosition) {
         super(topCornerPosition, bottomCornerPosition);

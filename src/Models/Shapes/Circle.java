@@ -47,8 +47,9 @@ public class Circle extends Ellipse {
 
 //        if (!copied) {
         diameter = Math.abs(bottomCornerPosition.x - topCornerPosition.x);
+        super.width = super.height = diameter;
         super.ellipse = new Ellipse2D.Float(getDrawX(), getDrawY(), diameter, diameter);
-//        } else{
+//        } else {
 //            super.ellipse = new Ellipse2D.Float(topCornerPosition.x, topCornerPosition.y, diameter, diameter);
 //        }
 

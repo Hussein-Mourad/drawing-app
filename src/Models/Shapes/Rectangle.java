@@ -10,9 +10,9 @@ import java.awt.Point;
  * @author hussein
  */
 public class Rectangle extends Shape {
-
-    int width;
-    int height;
+//
+//    int width;
+//    int height;
 
     public Rectangle(Point topCornerPosition, Point bottomCornerPosition) {
         super(topCornerPosition, bottomCornerPosition);
@@ -32,8 +32,8 @@ public class Rectangle extends Shape {
 
     public Rectangle(Rectangle copy) { // copy constructor
         super(copy);
-        this.width = copy.width;
-        this.height = copy.height;
+//        this.width = copy.width;
+//        this.height = copy.height;
     }
 
     @Override

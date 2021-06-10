@@ -83,6 +83,11 @@ public class DrawingPanel extends javax.swing.JPanel {
         pasteMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
         pasteMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Images/outline_content_paste_black_18dp.png"))); // NOI18N
         pasteMenuItem.setText("Paste");
+        pasteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pasteMenuItemActionPerformed(evt);
+            }
+        });
         rightClickMenu.add(pasteMenuItem);
 
         moveMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, java.awt.event.InputEvent.CTRL_MASK));
@@ -159,7 +164,7 @@ public class DrawingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseMoved
 
     private void copyMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_copyMenuItemActionPerformed
-        // TODO add your handling code here:
+        controller.copy();
     }//GEN-LAST:event_copyMenuItemActionPerformed
 
     private void cutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItemActionPerformed
@@ -169,6 +174,10 @@ public class DrawingPanel extends javax.swing.JPanel {
     private void fillMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fillMenuItemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fillMenuItemActionPerformed
+
+    private void pasteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasteMenuItemActionPerformed
+        controller.paste();
+    }//GEN-LAST:event_pasteMenuItemActionPerformed
 
     public JPopupMenu getRightClickMenu() {
         return rightClickMenu;

@@ -37,8 +37,8 @@ public class Ellipse extends Shape {
         super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
     }
 
-    public Ellipse(Ellipse copy, Point mousePosition) { // copy constructor
-        super(copy, mousePosition);
+    public Ellipse(Ellipse copy) { // copy constructor
+        super(copy);
         this.width = copy.width;
         this.height = copy.height;
         this.ellipse = copy.ellipse;
@@ -46,13 +46,18 @@ public class Ellipse extends Shape {
 
     @Override
     public void draw(Graphics2D g2D) {
-        width = Math.abs((bottomCornerPosition.x - topCornerPosition.x));
-        height = Math.abs((bottomCornerPosition.y - topCornerPosition.y));
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
-        ellipse = new Ellipse2D.Float(getDrawX(), getDrawY(), width, height);
 
-        if (fill) {
+//        if (!copied) {
+        width = Math.abs((bottomCornerPosition.x - topCornerPosition.x));
+        height = Math.abs((bottomCornerPosition.y - topCornerPosition.y));
+        ellipse = new Ellipse2D.Float(getDrawX(), getDrawY(), width, height);
+//        } else {
+//            ellipse = new Ellipse2D.Float(topCornerPosition.x, topCornerPosition.y, width, height);
+//        }
+
+        if (filled) {
             g2D.fill(ellipse);
         } else {
             g2D.draw(ellipse);

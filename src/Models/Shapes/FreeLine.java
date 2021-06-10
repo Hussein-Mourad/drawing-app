@@ -31,8 +31,8 @@ public class FreeLine extends Shape {
         super(topCornerPosition, bottomCornerPosition, stroke, color);
     }
 
-    public FreeLine(FreeLine copy, Point mousePosition) { // copy constructor
-        super(copy, mousePosition);
+    public FreeLine(FreeLine copy) { // copy constructor
+        super(copy);
         this.path = copy.path;
     }
 
@@ -40,6 +40,7 @@ public class FreeLine extends Shape {
     public void draw(Graphics2D g2D) {
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
+
         Point from = null;
         for (Point to : path) {
             if (from != null) {

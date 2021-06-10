@@ -30,24 +30,32 @@ public class Rectangle extends Shape {
         super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
     }
 
-    public Rectangle(Rectangle copy, Point mousePosition) { // copy constructor
-        super(copy, mousePosition);
+    public Rectangle(Rectangle copy) { // copy constructor
+        super(copy);
         this.width = copy.width;
         this.height = copy.height;
     }
 
     @Override
     public void draw(Graphics2D g2D) {
-        width = Math.abs((bottomCornerPosition.x - topCornerPosition.x));
-        height = Math.abs((bottomCornerPosition.y - topCornerPosition.y));
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
 
-        if (fill) {
+//        if (!copied) {
+        width = Math.abs((bottomCornerPosition.x - topCornerPosition.x));
+        height = Math.abs((bottomCornerPosition.y - topCornerPosition.y));
+        if (filled) {
             g2D.fillRect(getDrawX(), getDrawY(), width, height);
         } else {
             g2D.drawRect(getDrawX(), getDrawY(), width, height);
         }
+//        } else {
+//            if (filled) {
+//                g2D.fillRect(topCornerPosition.x, topCornerPosition.y, width, height);
+//            } else {
+//                g2D.drawRect(topCornerPosition.x, topCornerPosition.y, width, height);
+//            }
+//        }
     }
 
     public int getWidth() {

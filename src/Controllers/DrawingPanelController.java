@@ -17,7 +17,6 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -29,9 +28,8 @@ public class DrawingPanelController {
     private Mode mode;
     private static DrawingPanelController instance = null;
     private ColorBox colorBox = new ColorBox();
+    private Point mousePosition;
     private State currentState;
-    private ArrayList<Shape> shapes = new ArrayList<>(); // TODO convert to stack
-    private ArrayList<Shape> clearedShapes = new ArrayList<>(); // TODO convert to stack
     private Shape copiedShape;
     private float lineStroke = 1;
     private float brushStroke = 10;
@@ -67,55 +65,55 @@ public class DrawingPanelController {
         switch (this.mode) {
             case INSERT_RECTANLE:
                 Rectangle rectangle = new Rectangle(evt.getPoint(), evt.getPoint(), lineStroke, color, fill);
-                shapes.add(rectangle);
+                SharedData.shapes.add(rectangle);
                 break;
             case INSERT_SQUARE:
                 Square square = new Square(evt.getPoint(), evt.getPoint(), lineStroke, color, fill);
-                shapes.add(square);
+                SharedData.shapes.add(square);
                 break;
             case INSERT_CIRCLE:
                 Circle circle = new Circle(evt.getPoint(), evt.getPoint(), lineStroke, color, fill);
-                shapes.add(circle);
+                SharedData.shapes.add(circle);
                 break;
             case INSERT_ELLIPSE:
                 Ellipse ellipse = new Ellipse(evt.getPoint(), evt.getPoint(), lineStroke, color, fill);
-                shapes.add(ellipse);
+                SharedData.shapes.add(ellipse);
                 break;
             case INSERT_PENCIL:
                 currentDrawnLine = new FreeLine(evt.getPoint(), evt.getPoint(), lineStroke, color);
-                shapes.add(currentDrawnLine);
+                SharedData.shapes.add(currentDrawnLine);
                 currentDrawnLine.addPoint(evt.getPoint());
                 break;
             case INSERT_TRIANGLE:
                 Triangle triangle = new Triangle(evt.getPoint(), evt.getPoint(), lineStroke, color, fill);
-                shapes.add(triangle);
+                SharedData.shapes.add(triangle);
                 break;
             case INSERT_LINE:
                 StraightLine straightLine = new StraightLine(evt.getPoint(), evt.getPoint(), lineStroke, color);
-                shapes.add(straightLine);
+                SharedData.shapes.add(straightLine);
                 break;
             case INSERT_BRUSH:
                 currentDrawnLine = new FreeLine(evt.getPoint(), evt.getPoint(), brushStroke, color);
-                shapes.add(currentDrawnLine);
+                SharedData.shapes.add(currentDrawnLine);
                 currentDrawnLine.addPoint(evt.getPoint());
                 break;
             case ERASER:
                 currentDrawnLine = new FreeLine(evt.getPoint(), evt.getPoint(), eraserStroke, Color.WHITE);
-                shapes.add(currentDrawnLine);
+                SharedData.shapes.add(currentDrawnLine);
                 currentDrawnLine.addPoint(evt.getPoint());
                 break;
             case FILL:
-                fillShape(evt.getPoint());
+                fillShape();
                 break;
             case MOVE:
                 currentMovingShapePrevPt = evt.getPoint();
                 break;
             case DELETE:
-                deleteShape(evt.getPoint());
+                deleteShape();
                 break;
         }
         if (this.mode != Mode.DEFAULT) {
-            StateManager.updateState(new State(shapes));
+            this.currentState = new State(SharedData.shapes);
         }
     }
 
@@ -135,7 +133,7 @@ public class DrawingPanelController {
             case INSERT_ELLIPSE:
             case INSERT_LINE:
             case INSERT_TRIANGLE:
-                shapes.get(shapes.size() - 1).setBottomCornerPosition(evt.getPoint());
+                SharedData.shapes.get(SharedData.shapes.size() - 1).setBottomCornerPosition(evt.getPoint());
                 break;
             case INSERT_PENCIL:
             case INSERT_BRUSH:
@@ -155,8 +153,9 @@ public class DrawingPanelController {
     }
 
     public void mouseMoved(MouseEvent evt) {
+        mousePosition = evt.getPoint();
         if (this.mode == Mode.MOVE) {
-            for (Shape shape : shapes) {
+            for (Shape shape : SharedData.shapes) {
                 if (shape.isMouseInside(evt.getPoint())) {
                     setCustomCursor("outline_open_with_black_24dp.png");
                     currentMovingShape = shape;
@@ -173,121 +172,85 @@ public class DrawingPanelController {
         colorPicker.setVisible(true);
     }
 
-    void undo() {
-        if (deleted) {
-            redo();
-            deleted = false;
-        } else {
-            clearedShapes.add(shapes.get(shapes.size() - 1));
-            shapes.remove(shapes.size() - 1);
-            SharedData.panel.repaint();
-        }
+    void cut() {
+        deleteShape();
+        copy();
+        this.currentState = new State(SharedData.shapes);
+
     }
 
-    void redo() {
-        if (cleared) {
-            shapes.addAll(clearedShapes);
-            clearedShapes.clear();
-            cleared = false;
-        } else {
-            shapes.add(clearedShapes.get(clearedShapes.size() - 1));
-            clearedShapes.remove(clearedShapes.size() - 1);
-        }
-        SharedData.panel.repaint();
-    }
-
-    void cut(Point mousePosition) {
-        ArrayList<Shape> toRemove = new ArrayList<>();
-        for (Shape shape : shapes) {
+    public void copy() {
+        for (Shape shape : SharedData.shapes) {
             if (shape.isMouseInside(mousePosition)) {
-                toRemove.add(shape);
                 copiedShape = shape;
-            }
-        }
-        clearedShapes.addAll(toRemove);
-
-    }
-
-    void copy(Point mousePosition) {
-        for (Shape shape : shapes) {
-            if (shape.isMouseInside(mousePosition)) {
-                if (shape instanceof Rectangle) {
-                    copiedShape = new Rectangle((Rectangle) shape, mousePosition);
-                } else if (shape instanceof Square) {
-                    copiedShape = new Square((Square) shape, mousePosition);
-                } else if (shape instanceof Ellipse) {
-                    copiedShape = new Ellipse((Ellipse) shape, mousePosition);
-                } else if (shape instanceof Circle) {
-                    copiedShape = new Circle((Circle) shape, mousePosition);
-                } else if (shape instanceof Triangle) {
-                    copiedShape = new Triangle((Triangle) shape, mousePosition);
-                } else if (shape instanceof StraightLine) {
-                    copiedShape = new StraightLine((StraightLine) shape, mousePosition);
-                } else if (shape instanceof FreeLine) {
-                    copiedShape = new FreeLine((FreeLine) shape, mousePosition);
-                }
+                break;
             }
         }
     }
 
-    void paste(Point mousePosition) {
-        copiedShape.setTopCornerPosition(mousePosition);
-        shapes.add(copiedShape);
-    }
-
-    void deleteShape(Point mousePosition) {
-//        shapes.removeIf(shape -> shape.isMouseInside(evt.getPoint()));
-        ArrayList<Shape> toRemove = new ArrayList<>();
-        for (Shape shape : shapes) {
-            if (shape.isMouseInside(mousePosition)) {
-                toRemove.add(shape);
-            }
+    public void paste() {
+        Shape pasteShape;
+        if (copiedShape instanceof Rectangle) {
+            pasteShape = new Rectangle((Rectangle) copiedShape);
+        } else if (copiedShape instanceof Square) {
+            pasteShape = new Square((Square) copiedShape);
+        } else if (copiedShape instanceof Ellipse) {
+            pasteShape = new Ellipse((Ellipse) copiedShape);
+        } else if (copiedShape instanceof Circle) {
+            pasteShape = new Circle((Circle) copiedShape);
+        } else if (copiedShape instanceof Triangle) {
+            pasteShape = new Triangle((Triangle) copiedShape);
+        } else if (copiedShape instanceof StraightLine) {
+            pasteShape = new StraightLine((StraightLine) copiedShape);
+        } else {
+            return;
         }
-        deleted = toRemove.size() != 0;
-        clearedShapes.addAll(toRemove);
-        shapes.removeAll(toRemove);
+        pasteShape.setTopCornerPosition(mousePosition);
+        SharedData.shapes.add(pasteShape);
+        this.currentState = new State(SharedData.shapes);
         SharedData.panel.repaint();
     }
 
-    void fillShape(Point mousePosition) {
+    public void deleteShape() {
+        for (Shape shape : SharedData.shapes) {
+            if (shape.isMouseInside(mousePosition)) {
+                SharedData.shapes.remove(shape);
+                deleted = true;
+                break;
+            }
+        }
+        SharedData.panel.repaint();
+    }
+
+    public void fillShape() {
         Integer index = null;
         Shape newShape = null;
-        for (Shape shape : shapes) {
+        for (Shape shape : SharedData.shapes) {
             if (shape.isMouseInside(mousePosition)) {
-                index = shapes.indexOf(shape);
+                index = SharedData.shapes.indexOf(shape);
                 if (shape instanceof Rectangle) {
-                    newShape = new Rectangle((Rectangle) shape, mousePosition);
+                    newShape = new Rectangle(shape.getTopCornerPosition(), shape.getBottomCornerPosition(), shape.getStroke(), color, true);
                 } else if (shape instanceof Square) {
-                    newShape = new Square((Square) shape, mousePosition);
+                    newShape = new Square(shape.getTopCornerPosition(), shape.getBottomCornerPosition(), shape.getStroke(), color, true);
                 } else if (shape instanceof Ellipse) {
-                    newShape = new Ellipse((Ellipse) shape, mousePosition);
+                    newShape = new Ellipse(shape.getTopCornerPosition(), shape.getBottomCornerPosition(), shape.getStroke(), color, true);
                 } else if (shape instanceof Circle) {
-                    newShape = new Circle((Circle) shape, mousePosition);
+                    newShape = new Circle(shape.getTopCornerPosition(), shape.getBottomCornerPosition(), shape.getStroke(), color, true);
                 } else if (shape instanceof Triangle) {
-                    newShape = new Triangle((Triangle) shape, mousePosition);
-                } else if (shape instanceof StraightLine) {
-                    newShape = new StraightLine((StraightLine) shape, mousePosition);
-                } else if (shape instanceof FreeLine) {
-                    newShape = new FreeLine((FreeLine) shape, mousePosition);
+                    newShape = new Triangle(shape.getTopCornerPosition(), shape.getBottomCornerPosition(), shape.getStroke(), color, true);
                 }
-
-//                shape.setFill(true);
-//                shape.setColor(color);
             }
         }
         if (index != null) {
-            newShape.setFill(true);
-            newShape.setColor(color);
-            shapes.set(index, newShape);
+            SharedData.shapes.set(index, newShape);
         }
 
         SharedData.panel.repaint();
     }
 
     public void clearShapes() {
-        cleared = true;
-        clearedShapes.addAll(shapes);
-        shapes.clear();
+        SharedData.shapes.clear();
+        currentState = new State(SharedData.shapes);
         SharedData.panel.repaint();
     }
 
@@ -315,14 +278,6 @@ public class DrawingPanelController {
     }
 
     // Getters and Setters
-    public ArrayList<Shape> getShapes() {
-        return shapes;
-    }
-
-    public void setShapes(ArrayList<Shape> shapes) {
-        this.shapes = shapes;
-    }
-
     public Color getColor() {
         return color;
     }

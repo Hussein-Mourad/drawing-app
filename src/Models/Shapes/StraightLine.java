@@ -29,8 +29,8 @@ public class StraightLine extends Shape {
         super(topCornerPosition, bottomCornerPosition, stroke, color);
     }
 
-    public StraightLine(StraightLine copy, Point mousePosition) { // copy constructor
-        super(copy, mousePosition);
+    public StraightLine(StraightLine copy) { // copy constructor
+        super(copy);
     }
 
     @Override

@@ -35,21 +35,24 @@ public class Circle extends Ellipse {
         super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
     }
 
-    public Circle(Circle copy, Point mousePosition) { // copy constructor
-        super(copy, mousePosition);
+    public Circle(Circle copy) { // copy constructor
+        super(copy);
         this.diameter = copy.diameter;
     }
 
     @Override
     public void draw(Graphics2D g2D) {
-        diameter = Math.abs(bottomCornerPosition.x - topCornerPosition.x);
-
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
 
+//        if (!copied) {
+        diameter = Math.abs(bottomCornerPosition.x - topCornerPosition.x);
         super.ellipse = new Ellipse2D.Float(getDrawX(), getDrawY(), diameter, diameter);
+//        } else{
+//            super.ellipse = new Ellipse2D.Float(topCornerPosition.x, topCornerPosition.y, diameter, diameter);
+//        }
 
-        if (fill) {
+        if (filled) {
             g2D.fill(super.ellipse);
         } else {
             g2D.draw(super.ellipse);

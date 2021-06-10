@@ -19,7 +19,8 @@ public abstract class Shape {
     Color color = Color.BLACK;
     Point topCornerPosition;
     Point bottomCornerPosition;
-    boolean fill = false;
+    boolean filled = false;
+//    boolean copied = false;
 
     public Shape(Point topCornerPosition, Point bottomCornerPosition) {
         this.topCornerPosition = topCornerPosition;
@@ -44,15 +45,16 @@ public abstract class Shape {
         this.bottomCornerPosition = bottomCornerPosition;
         this.stroke = stroke;
         this.color = color;
-        this.fill = fill;
+        this.filled = fill;
     }
 
-    public Shape(Shape copy, Point mousePosition) { // copy constructor
+    public Shape(Shape copy) { // copy constructor
         this.stroke = copy.stroke;
         this.color = copy.color;
-        this.topCornerPosition = mousePosition;
+        this.topCornerPosition = copy.topCornerPosition;
         this.bottomCornerPosition = copy.bottomCornerPosition;
-        this.fill = copy.fill;
+        this.filled = copy.filled;
+//        this.copied = true;
     }
 
     public abstract void draw(Graphics2D g2D);
@@ -61,10 +63,8 @@ public abstract class Shape {
         topCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);
         bottomCornerPosition.translate(currentPt.x - prevPt.x, currentPt.y - prevPt.y);
     }
-//    abstract void move();
-//    abstract void resize();
-//    abstract void area();
 
+//    abstract void resize();
     public boolean isMouseInside(Point mousePosition) {
         if (mousePosition.x >= topCornerPosition.x
                 && mousePosition.x <= bottomCornerPosition.x
@@ -132,11 +132,11 @@ public abstract class Shape {
     }
 
     public boolean isFill() {
-        return fill;
+        return filled;
     }
 
     public void setFill(boolean fill) {
-        this.fill = fill;
+        this.filled = fill;
     }
 
 }

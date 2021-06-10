@@ -21,9 +21,14 @@ public class State {
 
     public State(ArrayList<Shape> shapes) {
         this.shapes = new ArrayList<Shape>(shapes);
+        StateManager.updateState(this);
     }
 
     public ArrayList<Shape> getShapes() {
         return this.shapes;
+    }
+
+    public void setState(ArrayList<Integer> state) {
+        this.shapes = shapes;
     }
 }

@@ -34,8 +34,8 @@ public class Triangle extends Shape {
         super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
     }
 
-    public Triangle(Triangle copy, Point mousePosition) { // copy constructor
-        super(copy, mousePosition);
+    public Triangle(Triangle copy) { // copy constructor
+        super(copy);
         this.bottomCornerPosition2 = copy.bottomCornerPosition2;
     }
 
@@ -58,7 +58,7 @@ public class Triangle extends Shape {
             bottomCornerPosition2.y
         };
 
-        if (fill) {
+        if (filled) {
             g2D.fillPolygon(xPoints, yPoints, 3);
         } else {
             g2D.drawPolygon(xPoints, yPoints, 3);

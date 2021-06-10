@@ -16,43 +16,44 @@ public class StateManager {
     private static ArrayList<State> states = new ArrayList<State>() {
         {
             add(new State());
-
         }
     };
+
     private static int currentStateIndex = 0;
     private static int threshold = 30;
 
     public static void updateState(State state) {
-        states.add(state);
+        states.add(currentStateIndex + 1, state);
         currentStateIndex++;
     }
 
     public static void undo() {
-        keepThreshold();
-        if (currentStateIndex != 0) {
+        if (currentStateIndex > 0) {
             currentStateIndex--;
         }
+
+        handleThreshold();
+        SharedData.shapes = new ArrayList(getCurrentState().getShapes());
         SharedData.panel.repaint();
     }
 
     public static void redo() {
-        keepThreshold();
-        if (currentStateIndex != states.size() - 1) {
+        if (currentStateIndex < states.size()) {
             currentStateIndex++;
         }
+        handleThreshold();
+        SharedData.shapes = new ArrayList(getCurrentState().getShapes());
         SharedData.panel.repaint();
     }
 
     public static State getCurrentState() {
-        for (State state : states) {
-            System.out.println(state.getShapes());
-        }
         return states.get(currentStateIndex);
     }
 
-    private static void keepThreshold() {
-        if (states.size() == 30) {
+    private static void handleThreshold() {
+        if (states.size() == threshold) {
             states.remove(0);
+            currentStateIndex--;
         }
     }
 

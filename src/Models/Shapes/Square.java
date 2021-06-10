@@ -34,23 +34,32 @@ public class Square extends Rectangle {
         super(topCornerPosition, bottomCornerPosition, stroke, color, fill);
     }
 
-    public Square(Square copy,
-            Point mousePosition) { // copy constructor
-        super(copy, mousePosition);
+    public Square(Square copy) { // copy constructor
+        super(copy);
     }
 
     @Override
     public void draw(Graphics2D g2D) {
-        int bottomX = Math.max(topCornerPosition.x, bottomCornerPosition.x);
-        side = height = width = Math.abs(bottomX - getDrawX());
         g2D.setStroke(new BasicStroke(stroke));
         g2D.setColor(color);
 
-        if (fill) {
-            g2D.fillRect(getDrawX(), getDrawY(), width, height);
+        if (!copied) {
+            int bottomX = Math.max(topCornerPosition.x, bottomCornerPosition.x);
+            side = height = width = Math.abs(bottomX - getDrawX());
+            if (filled) {
+                g2D.fillRect(getDrawX(), getDrawY(), width, height);
+            } else {
+                g2D.drawRect(getDrawX(), getDrawY(), width, height);
+            }
         } else {
-            g2D.drawRect(getDrawX(), getDrawY(), width, height);
+            side = height = width;
+            if (filled) {
+                g2D.fillRect(topCornerPosition.x, topCornerPosition.y, width, height);
+            } else {
+                g2D.drawRect(topCornerPosition.x, topCornerPosition.y, width, height);
+            }
         }
+
     }
 
     public int getSide() {

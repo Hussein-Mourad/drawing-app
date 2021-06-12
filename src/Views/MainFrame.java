@@ -74,7 +74,7 @@ public class MainFrame extends javax.swing.JFrame {
         squareButton = new javax.swing.JToggleButton();
         circleButton = new javax.swing.JToggleButton();
         triangleButton = new javax.swing.JToggleButton();
-        ellispeButton = new javax.swing.JToggleButton();
+        ellipseButton = new javax.swing.JToggleButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         moveButton = new javax.swing.JToggleButton();
         fillButton = new javax.swing.JToggleButton();
@@ -315,15 +315,15 @@ public class MainFrame extends javax.swing.JFrame {
         });
         sideBar.add(triangleButton);
 
-        buttonGroup1.add(ellispeButton);
-        ellispeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Images/outline_oval_black_24dp.png"))); // NOI18N
-        ellispeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ellispeButton.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(ellipseButton);
+        ellipseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Images/outline_oval_black_24dp.png"))); // NOI18N
+        ellipseButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ellipseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ellispeButtonActionPerformed(evt);
+                ellipseButtonActionPerformed(evt);
             }
         });
-        sideBar.add(ellispeButton);
+        sideBar.add(ellipseButton);
         sideBar.add(jSeparator3);
 
         buttonGroup1.add(moveButton);
@@ -550,8 +550,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_eraserSizeMenuActionPerformed
 
     private void circleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_circleButtonActionPerformed
-
-        controller.setMode(Mode.INSERT_CIRCLE);
+        if (circleButton.isSelected()) {
+            controller.setMode(Mode.INSERT_CIRCLE);
+        } else {
+            controller.resetMode();
+        }
     }//GEN-LAST:event_circleButtonActionPerformed
 
     private void triangleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_triangleButtonActionPerformed
@@ -565,10 +568,13 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_triangleButtonActionPerformed
 
-    private void ellispeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ellispeButtonActionPerformed
-
-        controller.setMode(Mode.INSERT_ELLIPSE);
-    }//GEN-LAST:event_ellispeButtonActionPerformed
+    private void ellipseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ellipseButtonActionPerformed
+        if (ellipseButton.isSelected()) {
+            controller.setMode(Mode.INSERT_ELLIPSE);
+        } else {
+            controller.resetMode();
+        }
+    }//GEN-LAST:event_ellipseButtonActionPerformed
 
     private void moveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_moveButtonActionPerformed
 
@@ -674,7 +680,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel currentColor;
     private javax.swing.JToggleButton deleteButton;
     private javax.swing.JPanel drawingPanel;
-    private javax.swing.JToggleButton ellispeButton;
+    private javax.swing.JToggleButton ellipseButton;
     private javax.swing.JToggleButton eraserButton;
     private javax.swing.JComboBox<String> eraserSizeMenu;
     private javax.swing.JToggleButton fillButton;

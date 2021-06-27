@@ -142,4 +142,5 @@ public abstract class Shape {
         this.filled = fill;
     }
 
+    public abstract boolean contains(Point mousePosition);
 }

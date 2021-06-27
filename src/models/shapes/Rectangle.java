@@ -10,10 +10,6 @@ import java.awt.Point;
  * @author hussein
  */
 public class Rectangle extends Shape {
-//
-//    int width;
-//    int height;
-
     public Rectangle(Point topCornerPosition, Point bottomCornerPosition) {
         super(topCornerPosition, bottomCornerPosition);
     }
@@ -56,6 +52,11 @@ public class Rectangle extends Shape {
 //                g2D.drawRect(topCornerPosition.x, topCornerPosition.y, width, height);
 //            }
 //        }
+    }
+
+    @Override
+    public boolean contains(Point mousePosition) {
+        return false;
     }
 
     public int getWidth() {
